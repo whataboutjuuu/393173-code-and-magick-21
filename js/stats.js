@@ -50,7 +50,7 @@ const drawRect = (ctx, x, y, height, name, score) => {
   if (name === `Вы`) {
     ctx.fillStyle = PLAYER_COLOR;
   } else {
-    ctx.fillStyle = `hsl(240, 100%, ` + Math.random() * 100 + `%)`;
+    ctx.fillStyle = `hsl(240, 100%, ${Math.random() * 100}%)`;
   }
   ctx.fillRect(x, y, COLUMN_WIDTH, height);
 
