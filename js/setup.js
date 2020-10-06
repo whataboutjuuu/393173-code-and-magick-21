@@ -6,7 +6,7 @@ const WIZARD_COUNT = 4;
 const template = document.querySelector(`#similar-wizard-template`);
 const templateContent = template.content.querySelector(`.setup-similar-item`);
 
-setup.classList.remove(`hidden`);
+// setup.classList.remove(`hidden`);
 similar.classList.remove(`hidden`);
 
 const wizardName = [`Иван`, `Хуан Себастьян`, `Мария`, `Кристоф`, `Виктор`, `Юлия`, `Люпита`, `Вашингтон`];
@@ -18,6 +18,10 @@ const getRandom = (array) => {
   const random = Math.floor(Math.random() * array.length);
 
   return array[random];
+};
+
+const getRandomElement = (array) => {
+  return array[Math.floor(Math.random() * array.length)];
 };
 
 function generateWizards(name, surname, color, eyes) {
@@ -56,3 +60,65 @@ const drawWizards = () => {
 };
 
 drawWizards();
+
+const setupOpen = document.querySelector(`.setup-open`);
+const setupUserOpen = setupOpen.querySelector(`.setup-open-icon`);
+const setupClose = setup.querySelector(`.setup-close`);
+
+const onPopupEscPress = (evt) => {
+  if (evt.key === `Escape`) {
+    evt.preventDefault();
+    closePopup();
+  }
+};
+
+const openPopup = () => {
+  setup.classList.remove(`hidden`);
+
+  document.addEventListener(`keydown`, onPopupEscPress);
+};
+
+
+const closePopup = () => {
+  setup.classList.add(`hidden`);
+
+  document.removeEventListener(`keydown`, onPopupEscPress);
+};
+
+setupOpen.addEventListener(`click`, function () {
+  openPopup();
+});
+
+setupUserOpen.addEventListener(`keydown`, function (evt) {
+  if (evt.key === `Enter`) {
+    openPopup();
+  }
+});
+
+setupClose.addEventListener(`click`, function () {
+  closePopup();
+});
+
+setupClose.addEventListener(`keydown`, function (evt) {
+  if (evt.key === `Enter`) {
+    closePopup();
+  }
+});
+
+const coatColorArray = [`rgb(101, 137, 164)`, `rgb(241, 43, 107)`, `rgb(146, 100, 161)`, `rgb(56, 159, 117)`, `rgb(215, 210, 55)`, `rgb(0, 0, 0)`];
+const eyesColorArray = [`black`, `red`, `blue`, `yellow`, `green`];
+const fireballColorArray = [`#ee4830`, `#30a8ee`, `#5ce6c0`, `#e848d5`, `#e6e848`];
+
+let coatColor = document.querySelector(`.wizard-coat`);
+let eyesColor = document.querySelector(`.wizard-eyes`);
+let fireballColor = document.querySelector(`.setup-fireball-wrap`);
+
+coatColor.addEventListener(`click`, function (evt) {
+  evt.target.style.fill = getRandomElement(coatColorArray);
+});
+eyesColor.addEventListener(`click`, function (evt) {
+  evt.target.style.fill = getRandomElement(eyesColorArray);
+});
+fireballColor.addEventListener(`click`, function (evt) {
+  evt.currentTarget.style.background = getRandomElement(fireballColorArray);
+});
