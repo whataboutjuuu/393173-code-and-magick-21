@@ -109,16 +109,31 @@ const coatColorArray = [`rgb(101, 137, 164)`, `rgb(241, 43, 107)`, `rgb(146, 100
 const eyesColorArray = [`black`, `red`, `blue`, `yellow`, `green`];
 const fireballColorArray = [`#ee4830`, `#30a8ee`, `#5ce6c0`, `#e848d5`, `#e6e848`];
 
-let coatColor = document.querySelector(`.wizard-coat`);
-let eyesColor = document.querySelector(`.wizard-eyes`);
-let fireballColor = document.querySelector(`.setup-fireball-wrap`);
+const player = document.querySelector(`.setup-player`);
+let coatColor = player.querySelector(`.wizard-coat`);
+let coatColorInput = player.querySelector(`input[name='coat-color']`);
+let eyesColor = player.querySelector(`.wizard-eyes`);
+let eyesColorInput = player.querySelector(`input[name='eyes-color']`);
+let fireballColor = player.querySelector(`.setup-fireball-wrap`);
+let fireballColorInput = player.querySelector(`input[name='fireball-color']`);
 
-coatColor.addEventListener(`click`, function (evt) {
-  evt.target.style.fill = getRandomElement(coatColorArray);
+const paintWizard = (part, input, array) => {
+  let color = getRandomElement(array);
+
+  if (part.tagName === `use`) {
+    part.style.fill = color;
+  } else {
+    part.style.background = color;
+  }
+  input.value = color;
+};
+
+coatColor.addEventListener(`click`, function () {
+  paintWizard(coatColor, coatColorInput, coatColorArray);
 });
-eyesColor.addEventListener(`click`, function (evt) {
-  evt.target.style.fill = getRandomElement(eyesColorArray);
+eyesColor.addEventListener(`click`, function () {
+  paintWizard(eyesColor, eyesColorInput, eyesColorArray);
 });
-fireballColor.addEventListener(`click`, function (evt) {
-  evt.currentTarget.style.background = getRandomElement(fireballColorArray);
+fireballColor.addEventListener(`click`, function () {
+  paintWizard(fireballColor, fireballColorInput, fireballColorArray);
 });
